@@ -5,11 +5,22 @@ import { Component, OnInit } from '@angular/core';
 	template: `
 		<h2>Home</h2>
 		
-		<output>{{num}}</output>
-		<button (click)="minus()">-</button>
-		<button (click)="plus()">+</button>
+		<app-box class="box-increment" title='Increment'>
+			<div class="output">
+				<div></div>
+				<output>{{num}}</output>
+				<button (click)="reset()">
+					<i class="bi bi-trash"></i>
+				</button>
+			</div>
+
+			<div class="buttons">
+				<button (click)="minus()">-</button>
+				<button (click)="plus()">+</button>
+			</div>
+		</app-box>
 	`,
-	styles: []
+	styleUrls: ['./home.container.scss']
 })
 export class HomeComponent implements OnInit
 {
@@ -19,13 +30,7 @@ export class HomeComponent implements OnInit
 
 	ngOnInit(): void {}
 
-	plus()
-	{
-		this.num++;
-	}
-
-	minus()
-	{
-		this.num--;
-	}
+	plus () { this.num++;   }
+	minus() { this.num--;   }
+	reset() { this.num = 0; }
 }

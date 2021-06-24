@@ -4,14 +4,15 @@ import { Component } from '@angular/core';
 	selector: 'app-root',
 	template: `
 		<header>
-			<div class="title">
-				<img src="assets/angular-js.svg" alt="Angular">
+			<a class="title" routerLink="/">
+				<img src="assets/angular.svg" alt="Angular">
 				<h1>Angular base</h1>
-			</div>
+			</a>
 			<nav class="main-menu">
 				<ul>
 					<li><a routerLink="/">Home</a></li>
 					<li><a routerLink="/form">Form</a></li>
+					<li><a routerLink="/list">List</a></li>
 				</ul>
 			</nav>
 		</header>

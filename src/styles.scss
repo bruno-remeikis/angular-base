@@ -1,6 +1,9 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
 * {
     margin: 0;
     padding: 0;
+    border: none;
     box-sizing: border-box;
 }
 
@@ -24,4 +27,9 @@ a {
 
 ul {
     list-style: none;
+}
+
+button,
+input[type="submit"] {
+    cursor: pointer;
 }

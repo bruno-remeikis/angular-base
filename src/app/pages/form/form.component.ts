@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+import api from '../../services/api';
+
 @Component({
 	selector: 'app-form',
 	template: `
@@ -9,12 +11,17 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 		<form [formGroup]="form" (ngSubmit)="onSubmit()">
 			<div class="form-group">
 				<label for="email">Email</label>
-				<input type="email" name="email" id="email" formControlName="email">
+				<input type="email" name="email" id="email" formControlName="email" required>
 			</div>
 
 			<div class="form-group">
 				<label for="pass">Password</label>
-				<input type="password" name="pass" id="pass" formControlName="pass">
+				<input type="password" name="pass" id="pass" formControlName="pass" required>
+			</div>
+
+			<div class="form-group">
+				<label for="conf-pass">Confirm password</label>
+				<input type="password" name="conf-pass" id="conf-pass" formControlName="confPass" required>
 			</div>
 			
 			<input type="submit" value="Salvar">
@@ -25,8 +32,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class FormComponent implements OnInit
 {
 	form: FormGroup = this.formBuilder.group({
-		email: [''],
-		pass: ['']
+		email: '',
+		pass: '',
+		confPass: ''
 	});
 
 	constructor(private formBuilder: FormBuilder) {}
@@ -35,10 +43,20 @@ export class FormComponent implements OnInit
 
   	onSubmit()
 	{
-		// aqui você pode implementar a logica para fazer seu formulário salvar
-		console.log(this.form.value);
+		const data = {
+			email: this.form.value.email,
+			pass: this.form.value.pass,
+			confPass: this.form.value.pass
+		};
 
-		// Usar o método reset para limpar os controles na tela
-		this.form.reset();
+		api.put('user', data).then(res =>
+		{
+			console.log('RESULTADO:');
+			console.log(res);
+		})
+		.catch(err =>
+		{
+			console.error('Error');
+		});
 	}
 }

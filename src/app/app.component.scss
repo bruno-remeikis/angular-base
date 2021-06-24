@@ -8,6 +8,8 @@
         justify-content: space-between;
 
         background-color: rgba(0, 0, 0, 0.06);
+
+        h1 { font-weight: 500; }
     }
 }
 
@@ -17,9 +19,9 @@
     gap: 1rem;
     margin-left: 1rem;
 
-    img {
-        width: 4rem;
-    }
+    &:hover h1::after { width: 7.6rem; }
+
+    img { width: 4rem; }
 
     h1 {
         display: flex;
@@ -28,10 +30,11 @@
 
         &::after {
             content: '';
+            background-color: var(--red-1);
             width: 4rem;
             height: 0.12rem;
-            background-color: var(--red-1);
             margin-top: 0.1rem;
+            transition: width 0.2s;
         }
     }
 }
