@@ -6,24 +6,33 @@ import { User } from 'src/app/models/user';
 @Component({
 	selector: 'app-list',
 	template: `
-		<p>
-			list works!
-		</p>
+		<h2 class="page-title">List</h2>
+
+		<app-box>
+			<ul class="users" *ngFor="let user of users">
+				<li>
+					<div></div>
+					<span class="id">{{user.id}}</span>
+					<span class="email">{{user.email}}</span>
+				</li>
+			</ul>
+		</app-box>
 	`,
-	styles: []
+	styleUrls: ['list.components.scss']
 })
 export class ListComponent implements OnInit
 {
+	users: User[] = [];
+
 	constructor() {}
 
-	ngOnInit(): void {}
-
-	list()
+	ngOnInit(): void
 	{
 		api.get('user').then(res =>
 		{
 			console.log('RESULTADO:');
 			console.log(res);
+			this.users = res.data;
 		})
 		.catch(err =>
 		{

@@ -3,12 +3,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
 	selector: 'app-home',
 	template: `
-		<h2>Home</h2>
+		<h2 class="page-title">Home</h2>
 		
 		<app-box class="box-increment" title='Increment'>
-			<div class="output">
+			<div class="input-box">
 				<div></div>
-				<output>{{num}}</output>
+				<output class="input">{{num}}</output>
 				<button (click)="reset()">
 					<i class="bi bi-trash"></i>
 				</button>

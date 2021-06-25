@@ -14,6 +14,10 @@ body {
     --red-1: rgb(253, 0, 32);
     --red-2: rgb(203, 6, 36);
 
+    --transparent-gray-1: rgba(0, 0, 0, 0.04);
+    --transparent-gray-2: rgba(0, 0, 0, 0.08);
+    --transparent-gray-3: rgba(0, 0, 0, 0.12);
+
     background-color: var(--white);
     color: var(--black);
 
@@ -32,4 +36,98 @@ ul {
 button,
 input[type="submit"] {
     cursor: pointer;
+}
+
+// PAGES
+.page-title {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+
+    &::after {
+        content: '';
+        background-color: var(--red-1);
+        width: 100%;
+        height: 0.14rem;
+    }
+}
+
+// FORM
+.form-group {
+    --radius: 0.2rem;
+
+    display: flex;
+    flex-direction: column;
+
+    label { margin-bottom: 0.2rem; }
+
+    /*
+    input { border-radius: var(--radius); }
+
+    input:not([type="submit"]) {
+        background-color: rgba(255, 255, 255, 0.3);
+        width: 100%;
+        padding: 0.6rem;
+    }
+    */
+
+    input[type="submit"] {
+        background-color: var(--red-1);
+        color: var(--white);
+        padding: 0.6rem;
+        font-size: 1rem;
+    }
+
+    &.submit-container {
+        display: flex;
+        flex-direction: row-reverse;
+
+        input {
+            // --------------------
+            background-color: var(--red-1);
+            color: var(--white);
+            padding: 0.6rem;
+            font-size: 1rem;
+            // --------------------
+
+            width: auto;
+            padding: 0.6rem 2rem;
+        }
+    }
+
+    &:not(:first-child) { margin-top: 0.8rem; }
+}
+
+// INPUT BOX
+.input-box {
+    --height: 2.4rem;
+
+    display: flex;
+    align-items: center;
+    background-color: var(--transparent-gray-1);
+
+    div {
+        background-color: var(--red-1);
+        width: 0.3rem;
+        height: var(--height);
+    }
+
+    .input {
+        flex: 1;
+        display: flex;
+        background-color: transparent;
+        margin-left: 1rem;
+        font-size: 0.9rem;
+        outline: none;
+    }
+
+    button {
+        background-color: transparent;
+        width: var(--height);
+        height: var(--height);
+        transition: background-color 0.2s;
+        //font-size: 0.8rem;
+
+        &:hover { background-color: var(--transparent-gray-1); }
+    }
 }
