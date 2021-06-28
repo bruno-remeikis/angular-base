@@ -34,7 +34,7 @@ import api from '../../services/api';
 					<div class="input-box">
 						<div></div>
 						<input class="input" [type]="visiblePass ? 'text' : 'password'" name="pass" id="pass" formControlName="pass" required>
-						<button (click)="changeVisiblePass()">
+						<button type="button" (click)="changeVisiblePass()">
 							<i
 								class="bi"
 								[class.bi-eye-fill]="!visiblePass"
@@ -95,10 +95,29 @@ export class FormComponent implements OnInit
 		{
 			console.log('RESULTADO:');
 			console.log(res);
+
+			this.form.reset();
 		})
 		.catch(err =>
 		{
-			console.error('Error');
+			switch(err.response?.data.code)
+			{
+				case 'UNFILLED_FIELD':
+					alert('Preencha todos os campos.');
+					break;
+				case 'INVALID_LENGTH':
+					alert('Preencha os campos corretamente');
+					break;
+				case 'DIFFERENT_PASSWORDS':
+					alert('Senhas diferentes.');
+					break;
+				case 'DUPLICATE_ENTRY':
+					alert('Email já cadastrado anteriormente.');
+					break;
+				default:
+					console.error(err);
+					alert('Erro ao cadastrar usuário.');
+			}
 		});
 	}
 }

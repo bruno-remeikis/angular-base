@@ -7,26 +7,47 @@
 .users {
     --height: 2.4rem;
 
-    display: flex;
-
     li {
         display: flex;
         align-items: center;
 
-        //&:first-child { margin-top: 1rem; }
+        &:not(:first-child) { margin-top: 1rem; }
 
-        div {
+        .border-left {
             background-color: var(--red-1);
-            width: 0.3rem;
+            width: 0.26rem;
             height: var(--height);
         }
 
         span { display: block; }
 
+        .main-info { flex: 1 }
+
         .id {
-            width: var(--height);
-            font-size: 1.1rem;
+            //width: var(--height);
+            padding: 0 1rem 0 0.6rem;
+            font-size: 1.4rem;
             text-align: center;
+        }
+
+        .email {
+            color: rgba(0, 0, 0, 0.4);
+            font-size: 0.8rem;
+        }
+
+        .buttons {
+            margin-left: 0.4rem;
+
+            button {
+                width: 2rem;
+                height: 2rem;
+                border-radius: 999rem;
+                transition: background-color 0.2s;
+
+                &:hover {
+                    background-color: var(--gray-1);
+                }
+            }
         }
     }
 }

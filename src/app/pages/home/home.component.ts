@@ -9,14 +9,14 @@ import { Component, OnInit } from '@angular/core';
 			<div class="input-box">
 				<div></div>
 				<output class="input">{{num}}</output>
-				<button (click)="reset()">
+				<button type="button" (click)="reset()">
 					<i class="bi bi-trash"></i>
 				</button>
 			</div>
 
 			<div class="buttons">
-				<button (click)="minus()">-</button>
-				<button (click)="plus()">+</button>
+				<button type="button" (click)="minus()">-</button>
+				<button type="button" (click)="plus()">+</button>
 			</div>
 		</app-box>
 	`,
