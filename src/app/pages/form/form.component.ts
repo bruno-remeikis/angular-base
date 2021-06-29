@@ -91,12 +91,11 @@ export class FormComponent implements OnInit
 			confPass: this.form.value.confPass
 		};
 
-		api.put('user', data).then(res =>
+		api.post('user', data).then(res =>
 		{
-			console.log('RESULTADO:');
-			console.log(res);
-
 			this.form.reset();
+
+			alert('Usuário cadastrado com sucesso!');
 		})
 		.catch(err =>
 		{
