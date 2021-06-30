@@ -55,7 +55,7 @@ import api from '../../services/api';
 				
 				<!-- Submit -->
 				<div class="form-group submit-container">
-					<input type="submit" value="Salvar">
+					<input class="submit" type="submit" value="Salvar">
 				</div>
 			</form>
 		</app-box>

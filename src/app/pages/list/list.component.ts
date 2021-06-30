@@ -30,16 +30,60 @@ import { User } from 'src/app/models/user';
 					<input class="input" type="email" name="email" id="email" formControlName="email" required>
 				</div>
 			</div>
+
+			<div class="divisor"></div>
+
+			<!-- Old password -->
+			<div class="form-group">
+				<label for="pass">Old password</label>
+				<div class="input-box">
+					<div></div>
+					<input class="input" [type]="visibleOldPass ? 'text' : 'password'" name="old-pass" id="old-pass" formControlName="oldPass" required>
+					<button type="button" (click)="changeVisibleOldPass()">
+						<i
+							class="bi"
+							[class.bi-eye-fill]="!visibleOldPass"
+							[class.bi-eye-slash-fill]="visibleOldPass"
+						></i>
+					</button>
+				</div>
+			</div>
+
+			<!-- New password -->
+			<div class="form-group">
+				<label for="pass">New password</label>
+				<div class="input-box">
+					<div></div>
+					<input class="input" [type]="visibleNewPass ? 'text' : 'password'" name="new-pass" id="new-pass" formControlName="newPass" required>
+					<button type="button" (click)="changeVisibleNewPass()">
+						<i
+							class="bi"
+							[class.bi-eye-fill]="!visibleNewPass"
+							[class.bi-eye-slash-fill]="visibleNewPass"
+						></i>
+					</button>
+				</div>
+			</div>
+
+			<!-- Confirm new password -->
+			<div class="form-group">
+				<label for="conf-pass">Confirm new password</label>
+				<div class="input-box">
+					<div></div>
+					<input class="input" type="password" name="conf-new-pass" id="conf-new-pass" formControlName="confNewPass" required>
+				</div>
+			</div>
 			
 			<!-- Submit -->
 			<div class="form-group submit-container">
-				<input type="submit" value="Salvar">
+				<input class="submit" type="submit" value="Salvar">
+				<button type="button" (click)="close()">Cancelar</button>
 			</div>
 		</form>
 	`,
 	styles: [`
 		form {
-			min-width: 20rem;
+			min-width: 22rem;
 			width: 100%;
 		}
 	`]
@@ -47,35 +91,75 @@ import { User } from 'src/app/models/user';
 export class EditModal
 {
 	form: FormGroup;
+	visibleOldPass = false;
+	visibleNewPass = false;
 
 	constructor(
-		private dialogRef: MatDialogRef</*MyDialogComponent*/ EditModal>,
+		private dialogRef: MatDialogRef<EditModal>,
 		@Inject(MAT_DIALOG_DATA) public user: User,
 		private formBuilder: FormBuilder
 	) {
 		this.form = this.formBuilder.group({
 			name: user.name,
-			email: user.email
-		})
+			email: user.email,
+			oldPass: '',
+			newPass: '',
+			confNewPass: ''
+		});
+	}
+
+	close()
+	{
+		this.dialogRef.close();
+	}
+
+	changeVisibleOldPass()
+	{
+		this.visibleOldPass = !this.visibleOldPass;
+	}
+
+	changeVisibleNewPass()
+	{
+		this.visibleNewPass = !this.visibleNewPass;
 	}
 
 	onSubmit()
 	{
 		const data = {
 			name: this.form.value.name,
-			email: this.form.value.email
+			email: this.form.value.email,
+			oldPass: this.form.value.oldPass,
+			newPass: this.form.value.newPass,
+			confNewPass: this.form.value.confNewPass
 		};
 
 		api.put(`user/${this.user.id}`, data).then(res =>
 		{
 			this.form.reset();
-			this.dialogRef.close();
+			this.close();
 
-			alert('Usuário cadastrado com sucesso!');
+			alert('Usuário atualizado com sucesso!');
 		})
 		.catch(err =>
 		{
-			console.error(err);
+			switch(err.response?.data.code)
+			{
+				case 'UNFILLED_FIELD':
+					alert('Preencha todos os campos.');
+					break;
+				case 'INVALID_LENGTH':
+					alert('Preencha os campos corretamente');
+					break;
+				case 'DIFFERENT_PASSWORDS':
+					alert('Senhas diferentes.');
+					break;
+				case 'INVALID_PASSWORD':
+					alert('Senha antiga inválida.');
+					break;
+				default:
+					console.error(err);
+					alert('Erro ao cadastrar usuário.');
+			}
 		});
 	}
 }

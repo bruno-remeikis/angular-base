@@ -92,13 +92,25 @@ input {
 }
 
 // FORM
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.divisor {
+    background-color: var(--gray-1);
+    height: 1px;
+    margin-top: 0.3rem;
+}
+
 .form-group {
     --radius: 0.2rem;
 
     display: flex;
     flex-direction: column;
 
-    &:not(:first-child) { margin-top: 0.8rem; }
+    //&:not(:first-child) { margin-top: 0.8rem; }
 
     label {
         margin-bottom: 0.2rem;
@@ -108,14 +120,23 @@ input {
     &.submit-container {
         display: flex;
         flex-direction: row-reverse;
+        gap: 0.4rem;
 
-        input {
-            background-color: var(--red-1);
-            color: var(--white);
+        input,
+        button {
+            background-color: var(--gray-2);
             padding: 0.6rem 1.8rem;
             font-size: 1rem;
             border-radius: 0.2rem;
             transition: background-color 0.2s;
+
+            &:hover { background-color: var(--gray-1); }
+        }
+
+        .submit
+        {
+            background-color: var(--red-1);
+            color: var(--white);
 
             &:hover { background-color: var(--red-2); }
         }
@@ -137,7 +158,7 @@ input:-webkit-autofill:active {
 
     display: flex;
     align-items: center;
-    background-color: var(--gray-1);
+    background-color: var(--gray-1) !important;
 
     div {
         background-color: var(--red-1);
